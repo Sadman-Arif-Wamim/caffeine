@@ -412,14 +412,14 @@ abstract class BoundedLocalCache<K, V> extends BLCHeader.DrainStatusRef
     Runnable task = () -> {
       try {
         removalListener().onRemoval(key, value, cause);
-      } catch (Throwable t) {
-        logger.log(Level.WARNING, "Exception thrown by removal listener", t);
+      } catch (Exception e) {
+        logger.log(Level.WARNING, "Exception thrown by removal listener", e);
       }
     };
     try {
       executor.execute(task);
-    } catch (Throwable t) {
-      logger.log(Level.ERROR, "Exception thrown when submitting removal listener", t);
+    } catch (Exception e) {
+      logger.log(Level.ERROR, "Exception thrown when submitting removal listener", e);
       task.run();
     }
   }
