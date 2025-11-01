@@ -1143,8 +1143,9 @@ abstract class BoundedLocalCache<K, V> extends BLCHeader.DrainStatusRef
     double hitRate = (double) hitsInSample() / requestCount;
     double hitRateChange = hitRate - previousSampleHitRate();
     double amount = (hitRateChange >= 0) ? stepSize() : -stepSize();
+    int negativeCheck = (amount >= 0 ? 1 : -1);
     double nextStepSize = (Math.abs(hitRateChange) >= HILL_CLIMBER_RESTART_THRESHOLD)
-        ? HILL_CLIMBER_STEP_PERCENT * maximum() * (amount >= 0 ? 1 : -1)
+        ? HILL_CLIMBER_STEP_PERCENT * maximum() * negativeCheck
         : HILL_CLIMBER_STEP_DECAY_RATE * amount;
     setPreviousSampleHitRate(hitRate);
     setAdjustment((long) amount);
