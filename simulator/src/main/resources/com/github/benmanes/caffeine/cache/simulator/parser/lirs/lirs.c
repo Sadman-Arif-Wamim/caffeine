@@ -121,6 +121,7 @@ int main(int argc, char* argv[])
      (1-(float)num_pg_flt/warm_pg_refs)*100);
 
   free(evict_list);
+  free(page_tbl);
   return 0;
 }
 
