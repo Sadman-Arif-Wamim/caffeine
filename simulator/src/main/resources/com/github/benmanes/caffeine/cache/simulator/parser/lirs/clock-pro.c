@@ -99,7 +99,8 @@ int main()
     return 1;
   }
 
-  strncpy(para_file_name, argv[1]);
+  strncpy(para_file_name, argv[1], sizeof(para_file_name) - 5);
+  para_file_name[sizeof(para_file_name) - 5] = '\0';
   strcat(para_file_name, ".par");
   para_fp = openReadFile(para_file_name);
 
