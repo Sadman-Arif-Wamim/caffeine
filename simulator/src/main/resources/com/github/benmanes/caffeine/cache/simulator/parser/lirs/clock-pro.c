@@ -196,7 +196,9 @@ int main()
 
     printf("total blocks refs = %ld  number of misses = %ld ==> hit rate = %2.1f\%\n",  total_pg_refs, num_pg_flt, (1-(float)num_pg_flt/warm_pg_refs)*100);
 
-    fprintf(cuv_fp, "%5ld  %2.1f\n", mem_size, 100-(float)num_pg_flt/warm_pg_refs*100);
+    if(warm_pg_refs>0){
+      fprintf(cuv_fp, "%5ld  %2.1f\n", mem_size, 100-(float)num_pg_flt/warm_pg_refs*100);
+    }
 
     if (sln_fp)
       fclose(sln_fp);
