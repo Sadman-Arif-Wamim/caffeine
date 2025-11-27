@@ -117,8 +117,12 @@ int main(int argc, char* argv[])
   printf(" Lhirs (cache size for HIR blocks)  = %ld\n", HIR_block_portion_limit);
   printf(" Final blocks refs                  = %ld\n", total_pg_refs);
   printf(" Final number of misses             = %ld \n", num_pg_flt);
-  printf(" Final hit rate                     = %2.1f\%\n",
-     (1-(float)num_pg_flt/warm_pg_refs)*100);
+  if (warm_pg_refs != 0) {
+  printf(" Final hit rate                     = %2.1f%%\n",
+           (1 - (float)num_pg_flt / warm_pg_refs) * 100);
+} else {
+  printf(" Final hit rate                     = N/A (division by zero)\n");
+}
 
   free(evict_list);
   free(page_tbl);
